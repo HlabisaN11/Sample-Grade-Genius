@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Grade Genius | Create Account</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body class="auth-page">
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <a href="index.html" class="logo">
+
+            <span class="logo-box">
+                GG
+            </span>
+
+            Grade Genius
+
+        </a>
+
+        <div class="nav-links">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="login.html">
+                Login
+            </a>
+
+            <a
+                href="register.html"
+                class="nav-button"
+            >
+                Register
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<main class="auth-container">
+
+    <section class="auth-card">
+
+        <div class="auth-header">
+
+            <div class="auth-logo">
+                GG
+            </div>
+
+            <h1>
+                Create your account
+            </h1>
+
+            <p>
+                Join Grade Genius and get started.
+            </p>
+
+        </div>
+
+
+        <form id="registerForm">
+
+            <div class="form-group">
+
+                <label for="first_name">
+                    First Name
+                </label>
+
+                <input
+                    type="text"
+                    id="first_name"
+                    name="first_name"
+                    placeholder="Enter first name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="last_name">
+                    Last Name
+                </label>
+
+                <input
+                    type="text"
+                    id="last_name"
+                    name="last_name"
+                    placeholder="Enter last name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="you@example.com"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Create a password"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="account_type">
+                    Account Type
+                </label>
+
+                <select
+                    id="account_type"
+                    name="account_type"
+                    required
+                >
+
+                    <option value="">
+                        Select account type
+                    </option>
+
+                    <option value="student">
+                        Student
+                    </option>
+
+                    <option value="teacher">
+                        Teacher
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div id="registerMessage"></div>
+
+
+            <button
+                type="submit"
+                class="auth-button"
+            >
+                Create Account
+            </button>
+
+        </form>
+
+
+        <div class="auth-footer">
+
+            Already have an account?
+
+            <a href="login.html">
+                Sign in
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    © 2026 Grade Genius. All rights reserved.
+
+</footer>
+
+
+<script>
+
+const registerForm =
+    document.getElementById("registerForm");
+
+
+registerForm.addEventListener(
+    "submit",
+    async function(e) {
+
+        e.preventDefault();
+
+
+        const first_name =
+            document.getElementById("first_name")
+            .value.trim();
+
+        const last_name =
+            document.getElementById("last_name")
+            .value.trim();
+
+        const email =
+            document.getElementById("email")
+            .value.trim();
+
+        const password =
+            document.getElementById("password")
+            .value;
+
+        const account_type =
+            document.getElementById("account_type")
+            .value;
+
+
+        const message =
+            document.getElementById(
+                "registerMessage"
+            );
+
+
+        message.textContent = "";
+
+
+        try {
+
+            const response =
+                await fetch("/register", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        first_name,
+                        last_name,
+                        email,
+                        password,
+                        account_type
+
+                    })
+
+                });
+
+
+            const data =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    data.message ||
+                    "Registration failed."
+                );
+
+            }
+
+
+            message.textContent =
+                "Account created successfully.";
+
+            message.style.color =
+                "#16a34a";
+
+            message.style.marginBottom =
+                "15px";
+
+            message.style.fontSize =
+                "13px";
+
+
+            setTimeout(
+                function() {
+
+                    window.location.href =
+                        "login.html";
+
+                },
+                1000
+            );
+
+
+        } catch (error) {
+
+            message.textContent =
+                error.message;
+
+            message.style.color =
+                "#dc2626";
+
+            message.style.marginBottom =
+                "15px";
+
+            message.style.fontSize =
+                "13px";
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

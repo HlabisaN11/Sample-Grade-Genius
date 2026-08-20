@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Teacher Chat</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="top-header">
+
+        <div class="header-content">
+
+            <h2>
+                Student Management System
+            </h2>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    Dashboard
+                </a>
+
+                <a href="students.html">
+                    Students
+                </a>
+
+                <a href="chat.html">
+                    Learner Chat
+                </a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+
+    <main class="chat-page">
+
+        <div class="chat-container">
+
+
+            <!-- STUDENT LIST -->
+
+            <aside class="chat-sidebar">
+
+                <h2>
+                    Learners
+                </h2>
+
+                <p class="chat-info">
+                    Select a learner to view the conversation.
+                </p>
+
+                <div id="studentList">
+
+                    Loading learners...
+
+                </div>
+
+            </aside>
+
+
+            <!-- CHAT -->
+
+            <section class="chat-window">
+
+
+                <!-- CHAT HEADER -->
+
+                <div
+                    id="chatHeader"
+                    class="chat-header">
+
+                    <h2>
+                        Select a learner
+                    </h2>
+
+                    <p>
+                        The conversation will appear here.
+                    </p>
+
+                </div>
+
+
+                <!-- MESSAGES -->
+
+                <div
+                    id="messages"
+                    class="messages">
+
+                    <div class="empty-chat">
+
+                        <div class="empty-chat-icon">
+                            💬
+                        </div>
+
+                        <h3>
+                            Teacher Chat
+                        </h3>
+
+                        <p>
+                            Select a learner to view messages.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MESSAGE FORM -->
+
+                <form
+                    id="messageForm"
+                    class="message-form">
+
+                    <input
+                        type="text"
+                        id="messageInput"
+                        placeholder="Type your reply..."
+                        autocomplete="off"
+                        disabled
+                    >
+
+                    <button
+                        type="submit"
+                        class="btn-primary"
+                        disabled>
+
+                        Send
+
+                    </button>
+
+                </form>
+
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <script src="js/teacher-chat.js"></script>
+
+</body>
+
+</html>

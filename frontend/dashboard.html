@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Grade Genius | Dashboard</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+</head>
+
+<body class="dashboard-page">
+
+
+<!-- =========================================
+     SIDEBAR
+========================================= -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-brand">
+
+        <div class="brand-mark">
+            GG
+        </div>
+
+        <div>
+
+            <strong>
+                Grade Genius
+            </strong>
+
+            <small>
+                Student Management
+            </small>
+
+        </div>
+
+    </div>
+
+
+    <nav class="sidebar-nav">
+
+        <a
+            href="dashboard.html"
+            class="sidebar-link active"
+        >
+            Dashboard
+        </a>
+
+        <a
+            href="students.html"
+            class="sidebar-link"
+        >
+            Students
+        </a>
+
+        <a
+            href="chat.html"
+            class="sidebar-link"
+        >
+            Messages
+        </a>
+
+        <a
+            href="#"
+            class="sidebar-link"
+        >
+            Profile
+        </a>
+
+        <a
+            href="#"
+            class="sidebar-link"
+        >
+            Settings
+        </a>
+
+    </nav>
+
+
+    <div class="sidebar-bottom">
+
+        <button
+            class="logout-button"
+            id="logoutButton"
+        >
+            Logout
+        </button>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================================
+     MAIN CONTENT
+========================================= -->
+
+<main class="dashboard-main">
+
+
+    <!-- TOP BAR -->
+
+    <header class="dashboard-header">
+
+        <div>
+
+            <p class="page-label">
+                Dashboard
+            </p>
+
+            <h1>
+                Welcome back,
+                <span id="welcomeName">
+                    User
+                </span>
+            </h1>
+
+            <p class="page-description">
+                Here's what's happening in your system today.
+            </p>
+
+        </div>
+
+
+        <!-- CURRENT USER -->
+
+        <div class="current-user">
+
+            <div
+                class="user-avatar"
+                id="userInitial"
+            >
+                U
+            </div>
+
+            <div>
+
+                <strong id="userName">
+                    User
+                </strong>
+
+                <small id="userRole">
+                    User
+                </small>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================
+         STATISTICS
+    ====================================== -->
+
+    <section class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-content">
+
+                <span>
+                    Total Students
+                </span>
+
+                <strong id="studentCount">
+                    0
+                </strong>
+
+                <small>
+                    Registered students
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-content">
+
+                <span>
+                    Teachers
+                </span>
+
+                <strong id="teacherCount">
+                    0
+                </strong>
+
+                <small>
+                    Active teachers
+                </small>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-content">
+
+                <span>
+                    Messages
+                </span>
+
+                <strong>
+                    12
+                </strong>
+
+                <small>
+                    Communication activity
+                </small>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =====================================
+         RECENT STUDENTS
+    ====================================== -->
+
+    <section class="dashboard-section">
+
+        <div class="section-header">
+
+            <div>
+
+                <h2>
+                    Recent Students
+                </h2>
+
+                <p>
+                    Latest student registrations
+                </p>
+
+            </div>
+
+            <a
+                href="students.html"
+                class="section-link"
+            >
+                View All
+            </a>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            ID
+                        </th>
+
+                        <th>
+                            First Name
+                        </th>
+
+                        <th>
+                            Last Name
+                        </th>
+
+                        <th>
+                            Email
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="studentsTable">
+
+                    <tr>
+
+                        <td colspan="5">
+                            Loading students...
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+// ==================================================
+// LOAD CURRENT USER
+// ==================================================
+
+const savedUser =
+    localStorage.getItem(
+        "gradeGeniusUser"
+    );
+
+
+if (!savedUser) {
+
+    window.location.href =
+        "login.html";
+
+} else {
+
+    const user =
+        JSON.parse(savedUser);
+
+
+    // Full name
+
+    const fullName =
+        `${user.first_name} ${user.last_name}`;
+
+
+    // Welcome name
+
+    document
+        .getElementById("welcomeName")
+        .textContent =
+        user.first_name;
+
+
+    // User name
+
+    document
+        .getElementById("userName")
+        .textContent =
+        fullName;
+
+
+    // Initial
+
+    document
+        .getElementById("userInitial")
+        .textContent =
+        user.first_name
+            .charAt(0)
+            .toUpperCase();
+
+
+    // Role
+
+    let role =
+        user.account_type ||
+        user.role ||
+        "User";
+
+
+    document
+        .getElementById("userRole")
+        .textContent =
+        role.charAt(0).toUpperCase() +
+        role.slice(1);
+
+}
+
+
+// ==================================================
+// LOAD STUDENTS
+// ==================================================
+
+async function loadStudents() {
+
+    try {
+
+        const response =
+            await fetch("/students");
+
+        const data =
+            await response.json();
+
+
+        if (!data.success) {
+
+            throw new Error(
+                "Could not load students."
+            );
+
+        }
+
+
+        const students =
+            data.students || [];
+
+
+        // Student count
+
+        document
+            .getElementById("studentCount")
+            .textContent =
+            students.length;
+
+
+        const table =
+            document
+                .getElementById(
+                    "studentsTable"
+                );
+
+
+        table.innerHTML = "";
+
+
+        // No students
+
+        if (students.length === 0) {
+
+            table.innerHTML = `
+                <tr>
+                    <td colspan="5">
+                        No students registered yet.
+                    </td>
+                </tr>
+            `;
+
+            return;
+
+        }
+
+
+        // Display latest 5
+
+        students
+            .slice(0, 5)
+            .forEach(student => {
+
+                const row =
+                    document.createElement("tr");
+
+
+                row.innerHTML = `
+
+                    <td>
+                        ${student.student_id}
+                    </td>
+
+                    <td>
+                        ${student.first_name}
+                    </td>
+
+                    <td>
+                        ${student.last_name}
+                    </td>
+
+                    <td>
+                        ${student.email}
+                    </td>
+
+                    <td>
+
+                        <span class="status-active">
+                            Active
+                        </span>
+
+                    </td>
+
+                `;
+
+
+                table.appendChild(row);
+
+            });
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Student loading error:",
+            error
+        );
+
+        document
+            .getElementById(
+                "studentsTable"
+            )
+            .innerHTML = `
+
+                <tr>
+
+                    <td colspan="5">
+
+                        Unable to load students.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+    }
+
+}
+
+
+loadStudents();
+
+
+// ==================================================
+// LOGOUT
+// ==================================================
+
+document
+    .getElementById("logoutButton")
+    .addEventListener(
+        "click",
+        () => {
+
+            localStorage.removeItem(
+                "gradeGeniusUser"
+            );
+
+            window.location.href =
+                "login.html";
+
+        }
+    );
+
+</script>
+
+</body>
+
+</html>
